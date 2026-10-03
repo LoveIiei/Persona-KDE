@@ -10,21 +10,22 @@ Scope {
     property bool shouldShow: false
     property var targetScreen: null
 
+    // KDE's own confirmation screen; it performs the action only after the user confirms
     Process {
-    id: poweroffProcess
-    command: ["qdbus6", "org.kde.Shutdown", "/Shutdown", "org.kde.Shutdown.logoutAndShutdown"]
-    running: false
-}
-Process {
-    id: restartProcess
-    command: ["qdbus6", "org.kde.Shutdown", "/Shutdown", "org.kde.Shutdown.logoutAndReboot"]
-    running: false
-}
-Process {
-    id: logoutProcess
-    command: ["qdbus6", "org.kde.Shutdown", "/Shutdown", "org.kde.Shutdown.logout"]
-    running: false
-}
+        id: poweroffProcess
+        command: ["qdbus6", "org.kde.LogoutPrompt", "/LogoutPrompt", "org.kde.LogoutPrompt.promptShutDown"]
+        running: false
+    }
+    Process {
+        id: restartProcess
+        command: ["qdbus6", "org.kde.LogoutPrompt", "/LogoutPrompt", "org.kde.LogoutPrompt.promptReboot"]
+        running: false
+    }
+    Process {
+        id: logoutProcess
+        command: ["qdbus6", "org.kde.LogoutPrompt", "/LogoutPrompt", "org.kde.LogoutPrompt.promptLogout"]
+        running: false
+    }
 
     LazyLoader {
         active: true
@@ -52,15 +53,6 @@ Process {
                 anchors.fill: parent
                 color: "transparent"
                 property int stage: 0
-
-                Component.onCompleted: {
-                    part2Video.play();
-                    part2Video.pause();
-                    part2Video.seek(0);
-                    part3Video.play();
-                    part3Video.pause();
-                    part3Video.seek(0);
-                }
 
                 function resetMenu() {
                     stage = 0;
@@ -189,21 +181,30 @@ Process {
                         itemRotation: 3
                         normalIcon: Qt.resolvedUrl("../Assets/iconpack/shutdown.png")
                         hoverIcon: Qt.resolvedUrl("../Assets/iconpack/shutdown1.png")
-                        action: () => poweroffProcess.running = true
+                        action: () => {
+                            poweroffProcess.running = true;
+                            hideAnimation.start();
+                        }
                     }
                     PowerItem {
                         offsetY: 100
                         itemRotation: -5
                         normalIcon: Qt.resolvedUrl("../Assets/iconpack/restart.png")
                         hoverIcon: Qt.resolvedUrl("../Assets/iconpack/restart1.png")
-                        action: () => restartProcess.running = true
+                        action: () => {
+                            restartProcess.running = true;
+                            hideAnimation.start();
+                        }
                     }
                     PowerItem {
                         offsetY: 300
                         itemRotation: -12
                         normalIcon: Qt.resolvedUrl("../Assets/iconpack/logout.png")
                         hoverIcon: Qt.resolvedUrl("../Assets/iconpack/logout1.png")
-                        action: () => logoutProcess.running = true
+                        action: () => {
+                            logoutProcess.running = true;
+                            hideAnimation.start();
+                        }
                     }
                 }
 

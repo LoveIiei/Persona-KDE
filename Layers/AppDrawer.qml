@@ -22,9 +22,6 @@ Scope {
     Lay.Calendar {
         id: calendarLayer
     }
-    Wid.P3rTransition2 {
-        id: optionsTransition
-    }
     Variants {
         model: Quickshell.screens
         PanelWindow {
@@ -40,6 +37,10 @@ Scope {
             color: "transparent"
             WlrLayershell.layer: WlrLayer.Overlay
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
+            // While collapsed, only the hover zone takes input so the rest of the screen edge stays clickable
+            mask: Region {
+                item: toolskiRoot.isHovered || toolskiRoot.isExpanded ? toolskiRoot : hoverZone
+            }
 
             Item {
                 id: toolskiRoot
@@ -61,6 +62,7 @@ Scope {
                 }
 
                 Item {
+                    id: hoverZone
                     anchors.left: parent.left
                     anchors.verticalCenter: parent.verticalCenter
                     width: 10
@@ -199,16 +201,6 @@ Scope {
                     width: 400
                     height: 300
                     visible: mainCircle.visible
-                    Connections {
-                        target: optionsTransition
-                        function onPeaked() {
-                            optionsLayer.targetScreen = optionsTransition.targetScreen;
-                            optionsLayer.shouldShow = true;
-                        }
-                        function onFinished() {
-                            optionsTransition.shouldShow = false;
-                        }
-                    }
                     Repeater {
                         model: [
                             {

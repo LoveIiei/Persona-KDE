@@ -70,8 +70,6 @@ Scope {
                     y: parent.height * -0.1
                     color: "#1a4fa8"
                     transform: Rotation {
-                        origin.x: parent.width / 2
-                        origin.y: parent.height / 2
                         angle: 20
                     }
                 }
@@ -89,8 +87,6 @@ Scope {
                     y: parent.height * 0.99
                     color: "white"
                     transform: Rotation {
-                        origin.x: parent.width / 2
-                        origin.y: parent.height / 2
                         angle: -20
                     }
                 }
@@ -218,8 +214,6 @@ Scope {
 
         Item {
             visible: entryRoot.todayFlag
-            anchors.left: parent.left - 109
-            anchors.verticalCenter: parent.verticalCenter * -10
             width: entryRoot.numSize * 1.5
             height: width
             Rectangle {

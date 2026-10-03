@@ -231,7 +231,7 @@ Scope {
 
                                     Text {
                                         text: barOuter.modelData.role
-                                        font.family: bebasNeue.name
+                                        font.family: "Bebas Neue"
                                         font.pixelSize: 50
                                         color: "white"
                                         rotation: -30
@@ -247,7 +247,7 @@ Scope {
                                         Text {
                                             anchors.centerIn: parent
                                             text: barOuter.modelData.label
-                                            font.family: bebasNeue.name
+                                            font.family: "Bebas Neue"
                                             font.pixelSize: 28
                                             color: barOuter.isActive ? "#111111" : "#d9ffffff"
                                             Behavior on color {
@@ -294,7 +294,7 @@ Scope {
                             layoutDirection: Qt.RightToLeft
                             Text {
                                 text: modelData.hint
-                                font.family: bebasNeue.name
+                                font.family: "Bebas Neue"
                                 font.pixelSize: 13
                                 color: "#38ffffff"
                             }
@@ -309,7 +309,7 @@ Scope {
                                     id: keyLabel
                                     anchors.centerIn: parent
                                     text: modelData.key
-                                    font.family: bebasNeue.name
+                                    font.family: "Bebas Neue"
                                     font.pixelSize: 11
                                     color: "#38ffffff"
                                 }

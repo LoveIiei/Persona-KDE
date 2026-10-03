@@ -110,14 +110,12 @@ Singleton {
                 dfShell.write("df -B1 / | awk 'NR==2{print $1\" \"$2\" \"$3}'; echo '@@END@@'\n");
         }
     }
-    Component.onCompleted: {
-        usersTimer.start();
-    }
     Timer {
         id: usersTimer
         interval: 60000
         repeat: true
         running: root.active
+        triggeredOnStart: true
         onTriggered: usersProc.running = true
     }
 }

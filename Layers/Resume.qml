@@ -77,6 +77,7 @@ Scope {
                 anchors.fill: parent
                 z: 3
                 visible: root.contentVisible
+                focus: visible
                 property int activeCard: 0
                 Column {
                     anchors {
