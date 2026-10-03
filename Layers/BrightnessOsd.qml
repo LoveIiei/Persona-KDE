@@ -116,7 +116,7 @@ Scope {
                         text: "󰃠"
                         color: "#ffffff"
                         font.pixelSize: 25
-                        font.family: "Montserrat Light"
+                        font.family: Dat.Fonts.body
                     }
                     Rectangle {
                         Layout.fillWidth: true
@@ -140,7 +140,7 @@ Scope {
                         text: root.brightness + "%"
                         color: "#ffffff"
                         font.pixelSize: 20
-                        font.family: "Montserrat Light"
+                        font.family: Dat.Fonts.body
                         font.weight: Font.Bold
                         Layout.minimumWidth: 50
                         horizontalAlignment: Text.AlignRight

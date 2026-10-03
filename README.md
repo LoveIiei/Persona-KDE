@@ -4,7 +4,7 @@
 
 [![QML](https://img.shields.io/badge/QML-Quickshell-7aa2f7?style=for-the-badge&logo=qt&logoColor=white)](https://quickshell.outfoxxed.me)
 [![Stars](https://img.shields.io/github/stars/Yujonpradhananga/Persona-Quickshell-?style=for-the-badge&color=e0af68&logoColor=white)](https://github.com/Yujonpradhananga/Persona-Quickshell-/stargazers)
-[![Hyprland](https://img.shields.io/badge/Hyprland-supported-2ac3de?style=for-the-badge&logoColor=white)](https://hyprland.org)
+[![KDE Plasma](https://img.shields.io/badge/KDE_Plasma-Wayland-2ac3de?style=for-the-badge&logo=kde&logoColor=white)](https://kde.org/plasma-desktop)
 [![Last Commit](https://img.shields.io/github/last-commit/Yujonpradhananga/Persona-Quickshell-?style=for-the-badge&color=9ece6a&logoColor=white)](https://github.com/Yujonpradhananga/Persona-Quickshell-/commits/main)
 
 </div>
@@ -23,39 +23,46 @@
 
 ## Dependencies
 
-### Plugins
+- [Quickshell](https://quickshell.outfoxxed.me) (tested with 0.3.1) running on **KDE Plasma (Wayland)**
+- `qdbus6` (power menu), `busctl` (launcher screen detection), `nmcli` (network list in Stats)
 
-A custom cava plugin is used here:
-**Link:** <https://github.com/Yujonpradhananga/Qt6-Cava-plugin>
+### Fonts
 
-You can build the plugin mannually or if you dont want to mannually build it and go through the installation process you can delete the `CavaVisualizer.qml` file and delete these lines 171-180 from the `WallpaperEngine.qml` file:
+Font names live in `Data/Fonts.qml`, change them there:
 
-```qml
-//delete these
-CavaVisualizer {
-  id: s1_cava
-  anchors {
-    left: parent.left
-    right: parent.right
-    top: parent.top
-    topMargin: 0
-  }
-  height: 555
-}
-```
+| Role | Font |
+|------|------|
+| Titles and big labels | FOT-Skip Std |
+| Body text and numbers | FOT-NewRodin Pro (DB / B) |
+| Battery icons | Any Nerd Font (default: FantasqueSansM Nerd Font) |
+| Media controls | Material Symbols Rounded |
+
+### Optional: animated wallpaper
+
+`Widgets/WallpaperEngine.qml` is not loaded by `shell.qml`. It needs this custom cava plugin:
+<https://github.com/Yujonpradhananga/Qt6-Cava-plugin>
+If you don't want the plugin, delete `CavaVisualizer.qml` and the `CavaVisualizer { ... }` block in `WallpaperEngine.qml`.
+
 ---
 
 ## AppLauncher
 
-The AppLauncher requires a hyprland keybind for it to work.
-Mine is set like this:
+The launcher is toggled over IPC and opens on the screen KWin reports as active.
+Bind it in **System Settings → Keyboard → Shortcuts → Add New → Command or Script**:
 
-```lua
-hl.bind(
-    mainMod .. " + R",
-    hl.dsp.exec_cmd("qs -c /path to where you have installed the repo/Persona-Quickshell/ ipc call searchapp toggle")
-)
+```sh
+qs ipc call searchapp toggle
 ```
+
+(Add `-c <config name>` or `-p <path>` if this isn't your default Quickshell config.)
+
+---
+
+## Power Menu
+
+Shutdown, restart and logout open KDE's own confirmation screen (`org.kde.LogoutPrompt`).
+To act immediately without confirmation, change the commands in `Layers/P3rpause.qml` to
+`org.kde.Shutdown` (`logoutAndShutdown`, `logoutAndReboot`, `logout`).
 
 ---
 
@@ -67,9 +74,6 @@ The greyscale shader is from [@snes19xx](https://github.com/snes19xx)'s [surface
 The media player's album art implementation is taken from [Rexcrazy804](https://github.com/Rexcrazy804)'s [Zaphkiel](https://github.com/Rexcrazy804/Zaphkiel).
 
 Shoutout to [blairxu13](https://github.com/blairxu13)'s [persona3-website](https://github.com/blairxu13/persona3-website).
-## Power Menu
-
-The power menu currently uses loginctl commands, feel free to change them to your needs.
 
 ---
 

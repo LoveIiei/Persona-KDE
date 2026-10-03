@@ -100,14 +100,14 @@ Scope {
                 spacing: -20
                 Text {
                     text: Dat.Time.now.getFullYear()
-                    font.family: "Montserrat"
+                    font.family: Dat.Fonts.body
                     font.pixelSize: 60
                     font.bold: true
                     color: "white"
                 }
                 Text {
                     text: Qt.formatDate(Dat.Time.now, "MMMM")
-                    font.family: "Microsoft Yahei"
+                    font.family: Dat.Fonts.body
                     font.pixelSize: 30
                     font.bold: true
                     color: "#b4c8ff"
@@ -116,7 +116,7 @@ Scope {
                     text: Dat.Time.now.getMonth() + 1
                     x: 200
                     topPadding: -100
-                    font.family: "Microsoft Yahei"
+                    font.family: Dat.Fonts.body
                     font.pixelSize: 250
                     font.bold: true
                     color: "white"
@@ -190,18 +190,7 @@ Scope {
         readonly property real numSize: todayFlag ? 90 : Math.max(26, 65 * scaleFactor)
         readonly property real dayLabelSize: todayFlag ? 17 : Math.max(9, 13 * scaleFactor)
 
-        readonly property real moonPhaseDeg: {
-            const synodicMonth = 29.53059;
-            const ref = new Date(Date.UTC(2000, 0, 6, 18, 14));
-            const diffDays = (dateObj - ref) / 86400000;
-            const days = ((diffDays % synodicMonth) + synodicMonth) % synodicMonth;
-            var deg = 360 - Math.floor((days / synodicMonth) * 360);
-            if (deg >= 355 || deg <= 5)
-                return 0;
-            if (deg >= 175 && deg <= 185)
-                return 180;
-            return deg;
-        }
+        readonly property real moonPhaseDeg: Dat.Time.moonPhaseDegreeAt(dateObj)
 
         readonly property var dayNames: ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
         readonly property int dayOfWeek: dateObj.getDay()
@@ -245,7 +234,7 @@ Scope {
             anchors.left: parent.left
             anchors.verticalCenter: parent.verticalCenter
             text: entryRoot.dateObj.getDate()
-            font.family: "Microsoft Yahei"
+            font.family: Dat.Fonts.body
             font.pixelSize: 90
             font.bold: true
             color: "white"
@@ -260,7 +249,7 @@ Scope {
 
             Text {
                 text: entryRoot.dayNames[entryRoot.dayOfWeek]
-                font.family: "Bahnschrift Condensed"
+                font.family: Dat.Fonts.body
                 font.pixelSize: 20
                 font.bold: true
                 color: entryRoot.isSunday ? "#ff4444" : entryRoot.isSaturday ? "#4488ff" : "white"

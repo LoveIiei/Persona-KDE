@@ -62,7 +62,7 @@ Scope {
                         }
                         color: "#ffffff"
                         font.pixelSize: 25
-                        font.family: "Montserrat Light"
+                        font.family: Dat.Fonts.body
                     }
 
                     Rectangle {
@@ -87,7 +87,7 @@ Scope {
                         text: Math.round((Pipewire.defaultAudioSink?.audio.volume ?? 0) * 100) + "%"
                         color: "#ffffff"
                         font.pixelSize: 20
-                        font.family: "Montserrat Light"
+                        font.family: Dat.Fonts.body
                         font.weight: Font.Bold
                         Layout.minimumWidth: 50
                         horizontalAlignment: Text.AlignRight

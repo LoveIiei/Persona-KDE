@@ -90,9 +90,15 @@ Scope {
                     anchors.top: parent.top
                     anchors.right: parent.right
                     anchors.rightMargin: clockScope.vw * 12
-                    anchors.topMargin: clockScope.vw * 0.2
+                    anchors.topMargin: clockScope.vw * 1.38
+                    // Fixed box centred on the tide band; the font shrinks to fit its width, so any font stays aligned
+                    width: clockScope.vw * 13.5
+                    height: clockScope.vw * 6.2
+                    fontSizeMode: Text.HorizontalFit
+                    horizontalAlignment: Text.AlignRight
+                    verticalAlignment: Text.AlignVCenter
                     text: Dat.Time.time
-                    font.family: "Microsoft Yahei"
+                    font.family: Dat.Fonts.body
                     font.pixelSize: clockScope.vw * 6
                     font.weight: Font.Bold
                     font.letterSpacing: -clockScope.vw * 0.21
@@ -111,7 +117,7 @@ Scope {
                     width: clockScope.vw * 2
                     text: Dat.Time.weekday
                     horizontalAlignment: Text.AlignHCenter
-                    font.family: "Bahnschrift Condensed"
+                    font.family: Dat.Fonts.body
                     font.pixelSize: clockScope.vw * 1.45
                     font.weight: Font.Normal
                     font.letterSpacing: -clockScope.vw * 0.1
@@ -129,7 +135,7 @@ Scope {
                     anchors.rightMargin: clockScope.vw * 6
                     width: clockScope.vw * 5
                     text: Info.BatteryInfo.icon + " " + Info.BatteryInfo.percentageString
-                    font.family: "JetBrainsMono Nerd Font"
+                    font.family: Dat.Fonts.icons
                     horizontalAlignment: Text.AlignHCenter
                     font.pixelSize: clockScope.vw * 1.5
                     font.weight: Font.Bold
@@ -148,7 +154,7 @@ Scope {
                     width: clockScope.vw * 5.5
                     text: Dat.Time.daytime
                     horizontalAlignment: Text.AlignHCenter
-                    font.family: "Microsoft Yahei"
+                    font.family: Dat.Fonts.body
                     font.pixelSize: clockScope.vw * 1.3
                     font.weight: Font.Bold
                     font.letterSpacing: -clockScope.vw * 0.1042
@@ -298,8 +304,11 @@ Scope {
             id: textMask
             anchors.top: parent.top
             anchors.right: parent.right
+            width: waveTextLayer.width
+            fontSizeMode: Text.HorizontalFit
+            horizontalAlignment: Text.AlignRight
             text: Dat.Time.date
-            font.family: "Microsoft Yahei"
+            font.family: Dat.Fonts.body
             font.pixelSize: clockScope.vw * 6.75
             font.weight: Font.Bold
             font.letterSpacing: -clockScope.vw * 0.75

@@ -13,14 +13,38 @@ import qs.Widgets as Wid
 Scope {
     id: root
     property bool forcedOpen: false
+    // Output KWin reports as active; empty means show on every screen
+    property string activeScreenName: ""
+
+    function openOnActiveScreen() {
+        if (!root.forcedOpen && !activeOutputProc.running)
+            activeOutputProc.running = true;
+    }
+
+    // Prints e.g. `s "HDMI-A-1"`
+    Process {
+        id: activeOutputProc
+        command: ["busctl", "--user", "call", "org.kde.KWin", "/KWin", "org.kde.KWin", "activeOutputName"]
+        stdout: StdioCollector {
+            id: activeOutputOut
+        }
+        onExited: exitCode => {
+            const m = activeOutputOut.text.match(/"(.*)"/);
+            root.activeScreenName = exitCode === 0 && m ? m[1] : "";
+            root.forcedOpen = true;
+        }
+    }
 
     IpcHandler {
         target: "searchapp"
         function toggle() {
-            root.forcedOpen = !root.forcedOpen;
+            if (root.forcedOpen)
+                root.forcedOpen = false;
+            else
+                root.openOnActiveScreen();
         }
         function open() {
-            root.forcedOpen = true;
+            root.openOnActiveScreen();
         }
         function close() {
             root.forcedOpen = false;
@@ -34,7 +58,7 @@ Scope {
             id: window
             property var modelData
             screen: modelData
-            visible: root.forcedOpen
+            visible: root.forcedOpen && (root.activeScreenName === "" || !Quickshell.screens.some(s => s.name === root.activeScreenName) || modelData.name === root.activeScreenName)
             anchors {
                 top: true
                 left: true
@@ -44,7 +68,7 @@ Scope {
             color: "transparent"
             WlrLayershell.layer: WlrLayer.Top
             WlrLayershell.namespace: "searchapp"
-            WlrLayershell.keyboardFocus: root.forcedOpen ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
+            WlrLayershell.keyboardFocus: visible ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
 
             property var filteredApps: {

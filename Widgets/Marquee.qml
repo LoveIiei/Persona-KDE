@@ -1,4 +1,5 @@
 import QtQuick
+import qs.Data as Dat
 
 Item {
     id: root
@@ -6,11 +7,11 @@ Item {
     required property string text
     required property int maxWidth
 
-    property var font: Fonts.monoFont
+    property var font: Dat.Fonts.display
     property int size: 11
-    property var color: Colors.text
+    property var color: Dat.Colors.foreground
     property int scrollRate: 5
-    property int pauseDuration: Globals.anim.durations.normal
+    property int pauseDuration: 2000
 
     clip: true
     width: Math.min(maxWidth, text1.paintedWidth)

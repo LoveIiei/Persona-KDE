@@ -89,7 +89,7 @@ Scope {
                     spacing: 10
                     Text {
                         text: "LIST"
-                        font.family: "proggyfonts"
+                        font.family: Dat.Fonts.display
                         font.pixelSize: 72
                         color: "#f6fbff"
                         leftPadding: 12
@@ -189,7 +189,7 @@ Scope {
                                 Text {
                                     anchors.centerIn: parent
                                     text: cardWrap.modelData.badge
-                                    font.family: "Montserrat"
+                                    font.family: Dat.Fonts.body
                                     font.pixelSize: 28
                                     color: cardWrap.isActive ? "#fff" : "#d2fdff"
                                     rotation: 8
@@ -204,7 +204,7 @@ Scope {
                                     topMargin: 14
                                 }
                                 text: cardWrap.modelData.title
-                                font.family: "Montserrat"
+                                font.family: Dat.Fonts.body
                                 font.pixelSize: 48
                                 color: cardWrap.isActive ? "#000" : "#a5f6ff"
                             }
@@ -219,7 +219,7 @@ Scope {
                                 spacing: 8
                                 Text {
                                     text: "RANK"
-                                    font.family: "Montserrat"
+                                    font.family: Dat.Fonts.body
                                     font.pixelSize: 22
                                     color: cardWrap.isActive ? "#000" : "#9ffbff"
                                     anchors.bottom: parent.bottom
@@ -227,7 +227,7 @@ Scope {
                                 }
                                 Text {
                                     text: cardWrap.modelData.rank
-                                    font.family: "Montserrat"
+                                    font.family: Dat.Fonts.body
                                     font.pixelSize: 60
                                     color: cardWrap.isActive ? "#000" : "#9ffbff"
                                 }
@@ -275,7 +275,7 @@ Scope {
                                         leftMargin: 14
                                     }
                                     text: cardWrap.modelData.subtitle
-                                    font.family: "Montserrat"
+                                    font.family: Dat.Fonts.body
                                     font.pixelSize: 20
                                     color: cardWrap.isActive ? "#fff" : "#041238"
                                     verticalAlignment: Text.AlignVCenter
@@ -376,14 +376,14 @@ Scope {
                             spacing: 14
                             Text {
                                 text: detailHeader.indexText
-                                font.family: "Montserrat"
+                                font.family: Dat.Fonts.body
                                 font.pixelSize: 40
                                 color: "#08153f"
                                 anchors.verticalCenter: parent.verticalCenter
                             }
                             Text {
                                 text: detailHeader.titleText
-                                font.family: "Montserrat"
+                                font.family: Dat.Fonts.body
                                 font.pixelSize: 36
                                 color: "#08153f"
                                 anchors.verticalCenter: parent.verticalCenter
@@ -466,7 +466,7 @@ Scope {
 
                                         Text {
                                             text: modelData.title
-                                            font.family: "Montserrat"
+                                            font.family: Dat.Fonts.body
                                             font.pixelSize: 24
                                             color: "#f2fcff"
                                             anchors.verticalCenter: parent.verticalCenter
@@ -507,7 +507,7 @@ Scope {
                                                 id: statusText
                                                 anchors.centerIn: parent
                                                 text: modelData.status
-                                                font.family: "Montserrat"
+                                                font.family: Dat.Fonts.body
                                                 font.pixelSize: 16
                                                 color: "#06133b"
                                             }

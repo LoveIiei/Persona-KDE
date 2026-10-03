@@ -206,7 +206,7 @@ Scope {
                             anchors.bottom: parent.bottom
                             text: capsuleScope.mpris ? (capsuleScope.mpris.trackArtist || "") : ""
                             maxWidth: parent.width
-                            font: "FOT-Skip Std"
+                            font: Dat.Fonts.display
                             size: 11
                             color: Dat.Colors.color3
                             scrollRate: 50
@@ -215,16 +215,16 @@ Scope {
                         }
                     }
 
-                    // Song Title / "No Media"
+                    // Song Title / "Silence"
                     Item {
                         width: parent.width
                         height: songname.implicitHeight
 
                         Wid.Marquee {
                             id: songname
-                            text: capsuleScope.mpris ? (capsuleScope.mpris.trackTitle || "No title") : "No Media"
+                            text: capsuleScope.mpris ? (capsuleScope.mpris.trackTitle || "No title") : "Silence"
                             maxWidth: parent.width
-                            font: "FOT-Skip Std"
+                            font: Dat.Fonts.display
                             size: 14
                             color: "black"
                             scrollRate: 50

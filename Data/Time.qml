@@ -10,12 +10,18 @@ Singleton {
 
     readonly property var now: clock.date
 
-    readonly property real synodicDays: {
+    // Moon phase in degrees (0 = new, 180 = full) for any date; shared by the clock and the calendar
+    function moonPhaseDegreeAt(date) {
         const synodicMonth = 29.53059;
         const referenceNewMoon = new Date(Date.UTC(2000, 0, 6, 18, 14));
-        const diffMs = now - referenceNewMoon;
-        const diffDays = diffMs / (1000 * 60 * 60 * 24);
-        return ((diffDays % synodicMonth) + synodicMonth) % synodicMonth;
+        const diffDays = (date - referenceNewMoon) / (1000 * 60 * 60 * 24);
+        const days = ((diffDays % synodicMonth) + synodicMonth) % synodicMonth;
+        const degree = 360 - Math.floor((days / synodicMonth) * 360);
+        if (degree >= 355 || degree <= 5)
+            return 0;
+        if (degree >= 175 && degree <= 185)
+            return 180;
+        return degree;
     }
 
     readonly property string time: {
@@ -45,16 +51,5 @@ Singleton {
         return "Dark";
     }
 
-    readonly property real moonPhaseDegree: {
-        const cycleLength = 29.5;
-        const knownNewMoon = new Date('2024-03-10T15:00:00');
-        const daysSince = (now - knownNewMoon) / (1000 * 60 * 60 * 24);
-        const percentage = (daysSince % cycleLength) / cycleLength;
-        var degree = 360 - Math.floor(percentage * 360);
-        if (degree >= 355 || degree <= 5)
-            return 0;
-        if (degree >= 175 && degree <= 185)
-            return 180;
-        return degree;
-    }
+    readonly property real moonPhaseDegree: moonPhaseDegreeAt(now)
 }

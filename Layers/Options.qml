@@ -2,6 +2,7 @@ import QtQuick
 import QtMultimedia
 import Quickshell
 import Quickshell.Wayland
+import qs.Data as Dat
 import qs.Widgets as Wid
 
 Scope {
@@ -231,7 +232,7 @@ Scope {
 
                                     Text {
                                         text: barOuter.modelData.role
-                                        font.family: "Bebas Neue"
+                                        font.family: Dat.Fonts.display
                                         font.pixelSize: 50
                                         color: "white"
                                         rotation: -30
@@ -247,7 +248,7 @@ Scope {
                                         Text {
                                             anchors.centerIn: parent
                                             text: barOuter.modelData.label
-                                            font.family: "Bebas Neue"
+                                            font.family: Dat.Fonts.display
                                             font.pixelSize: 28
                                             color: barOuter.isActive ? "#111111" : "#d9ffffff"
                                             Behavior on color {
@@ -268,50 +269,6 @@ Scope {
                                         optionsWindow.activeBar = barOuter.index;
                                         optionsWindow.barsRevealed = true;
                                     }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                Column {
-                    anchors.bottom: parent.bottom
-                    anchors.right: parent.right
-                    anchors.bottomMargin: 20
-                    anchors.rightMargin: 28
-                    spacing: 5
-                    opacity: root.contentVisible ? 1 : 0
-                    Behavior on opacity {
-                        NumberAnimation {
-                            duration: 400
-                        }
-                    }
-
-                    Repeater {
-                        delegate: Row {
-                            required property var modelData
-                            spacing: 8
-                            layoutDirection: Qt.RightToLeft
-                            Text {
-                                text: modelData.hint
-                                font.family: "Bebas Neue"
-                                font.pixelSize: 13
-                                color: "#38ffffff"
-                            }
-                            Rectangle {
-                                color: "transparent"
-                                border.color: "#26ffffff"
-                                border.width: 1
-                                radius: 3
-                                width: keyLabel.width + 12
-                                height: keyLabel.height + 4
-                                Text {
-                                    id: keyLabel
-                                    anchors.centerIn: parent
-                                    text: modelData.key
-                                    font.family: "Bebas Neue"
-                                    font.pixelSize: 11
-                                    color: "#38ffffff"
                                 }
                             }
                         }
